@@ -7,7 +7,7 @@
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Hash calculate tool" Height="450" Width="800">
+        Title="Hash calculate tool" Height="450" Width="800" AllowDrop="True" Drop="MainWindow_OnDrop">
     <Window.Resources>
         <system:Double x:Key="LabelMinWidth">80</system:Double>
 
@@ -31,7 +31,7 @@
         </Style>
 
     </Window.Resources>
-    <Border Padding="10">
+    <Border Padding="10" AllowDrop="True" Drop="MainWindow_OnDrop">
         <Grid IsSharedSizeScope="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -55,7 +55,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="文件选择：" />
                     <TextBox Grid.Column="1" mah:TextBoxHelper.ButtonContent="p" mah:TextBoxHelper.ButtonCommand="{Binding FileSelectedCommand}" 
-                             mah:TextBoxHelper.Watermark="选择文件" IsReadOnly="True" Text="{Binding FilePath, Mode=OneWay}"/>
+                             mah:TextBoxHelper.Watermark="选择文件" IsReadOnly="True" Text="{Binding FilePath, Mode=OneWay}" />
                 </Grid>
             </StackPanel>
             <Border Grid.Row="1" BorderThickness="0,1,0,0" HorizontalAlignment="Stretch" BorderBrush="{DynamicResource AccentColorBrush}" Margin="5"/>

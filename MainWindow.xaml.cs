@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using FrHello.NetLib.Core.Security;
 using Microsoft.Win32;
 using MvvmCross.Commands;
@@ -127,6 +128,11 @@ namespace HashTool
                 _inputString = null;
                 OnPropertyChanged(nameof(InputString));
                 Calculate();
+            }
+            else
+            {
+                _filePath = null;
+                OnPropertyChanged(nameof(FilePath));
             }
         }
 
@@ -271,6 +277,14 @@ namespace HashTool
             OnPropertyChanged(nameof(Sha256));
             OnPropertyChanged(nameof(Sha384));
             OnPropertyChanged(nameof(Sha512));
+        }
+
+        private void MainWindow_OnDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                FilePath = ((System.Array) e.Data.GetData(DataFormats.FileDrop))?.GetValue(0).ToString();
+            }
         }
     }
 }
