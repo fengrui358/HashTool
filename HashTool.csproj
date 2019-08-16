@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FrHello.NetLib.Core.Security" Version="1.0.3" />
+    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
+  </ItemGroup>
+
+</Project>
