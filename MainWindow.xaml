@@ -7,7 +7,7 @@
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Hash calculate tool" Height="450" Width="800" AllowDrop="True" Drop="MainWindow_OnDrop">
+        Title="Hash calculate tool" Height="450" Width="800" AllowDrop="True" DragEnter="MainWindow_OnDragEnter">
     <Window.Resources>
         <system:Double x:Key="LabelMinWidth">80</system:Double>
 
@@ -31,76 +31,79 @@
         </Style>
 
     </Window.Resources>
-    <Border Padding="10" AllowDrop="True" Drop="MainWindow_OnDrop">
-        <Grid IsSharedSizeScope="True">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="文本输入：" />
-                    <TextBox Grid.Column="1" mah:TextBoxHelper.Watermark="输入文本" mah:TextBoxHelper.ClearTextButton="True"
-                             Text="{Binding InputString, UpdateSourceTrigger=PropertyChanged, Delay=50}" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="文件选择：" />
-                    <TextBox Grid.Column="1" mah:TextBoxHelper.ButtonContent="p" mah:TextBoxHelper.ButtonCommand="{Binding FileSelectedCommand}" 
-                             mah:TextBoxHelper.Watermark="选择文件" IsReadOnly="True" Text="{Binding FilePath, Mode=OneWay}" />
-                </Grid>
-            </StackPanel>
-            <Border Grid.Row="1" BorderThickness="0,1,0,0" HorizontalAlignment="Stretch" BorderBrush="{DynamicResource AccentColorBrush}" Margin="5"/>
-            <StackPanel Grid.Row="2">
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Md5：" />
-                    <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Md5, Mode=OneWay}" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Sha1：" />
-                    <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha1, Mode=OneWay}" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Sha256：" />
-                    <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha256, Mode=OneWay}" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Sha384：" />
-                    <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha384, Mode=OneWay}" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
-                        <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Sha512：" />
-                    <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha512, Mode=OneWay}" />
-                </Grid>
-            </StackPanel>
-        </Grid>
-    </Border>
+    <Grid>
+        <Border Padding="10">
+            <Grid IsSharedSizeScope="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="文本输入：" />
+                        <TextBox Grid.Column="1" mah:TextBoxHelper.Watermark="输入文本" mah:TextBoxHelper.ClearTextButton="True"
+                                 Text="{Binding InputString, UpdateSourceTrigger=PropertyChanged, Delay=50}" />
+                    </Grid>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="文件选择：" />
+                        <TextBox Grid.Column="1" mah:TextBoxHelper.ButtonContent="p" mah:TextBoxHelper.ButtonCommand="{Binding FileSelectedCommand}" 
+                                 mah:TextBoxHelper.Watermark="选择文件" IsReadOnly="True" Text="{Binding FilePath, Mode=OneWay}" />
+                    </Grid>
+                </StackPanel>
+                <Border Grid.Row="1" BorderThickness="0,1,0,0" HorizontalAlignment="Stretch" BorderBrush="{DynamicResource AccentColorBrush}" Margin="5"/>
+                <StackPanel Grid.Row="2">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Md5：" />
+                        <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Md5, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Sha1：" />
+                        <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha1, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Sha256：" />
+                        <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha256, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Sha384：" />
+                        <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha384, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" SharedSizeGroup="Label"/>
+                            <ColumnDefinition MinWidth="{StaticResource LabelMinWidth}" Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Sha512：" />
+                        <TextBox Grid.Column="1" Style="{StaticResource ReadOnlyStyle}" Text="{Binding Sha512, Mode=OneWay}" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid x:Name="DropMask" Visibility="Collapsed" Background="Transparent" AllowDrop="True" Drop="MainWindow_OnDrop" DragLeave="MainWindow_OnDragLeave"/>
+    </Grid>
 </Window>

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using FrHello.NetLib.Core.Security;
 using Microsoft.Win32;
 using MvvmCross.Commands;
@@ -88,6 +89,7 @@ namespace HashTool
             DataContext = this;
 
             FileSelectedCommand = new MvxCommand(FileSelectedCommandHandler);
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -285,6 +287,18 @@ namespace HashTool
             {
                 FilePath = ((System.Array) e.Data.GetData(DataFormats.FileDrop))?.GetValue(0).ToString();
             }
+
+            DropMask.Visibility = Visibility.Collapsed;
+        }
+
+        private void MainWindow_OnDragEnter(object sender, DragEventArgs e)
+        {
+            DropMask.Visibility = Visibility.Visible;
+        }
+
+        private void MainWindow_OnDragLeave(object sender, DragEventArgs e)
+        {
+            DropMask.Visibility = Visibility.Collapsed;
         }
     }
 }
