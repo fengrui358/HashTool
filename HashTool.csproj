@@ -4,11 +4,21 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>H_Letter_32px_1121472_easyicon.net.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="H_Letter_32px_1121472_easyicon.net.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="H_Letter_32px_1121472_easyicon.net.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FrHello.NetLib.Core.Security" Version="1.0.3" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
+    <PackageReference Include="MvvmCross" Version="6.3.1" />
   </ItemGroup>
 
 </Project>
